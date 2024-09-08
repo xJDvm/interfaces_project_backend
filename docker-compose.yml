@@ -1,14 +1,20 @@
 services:
   postgres:
-    image: postgres:13
+    image: postgres:16
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
+      - POSTGRES_DB=db-interfaces
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=elmejor10
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ./postgres_data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
 
-volumes:
-  postgres_data:
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=root@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=elmejor10
+    ports:
+      - "5050:80"
