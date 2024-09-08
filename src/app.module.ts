@@ -9,6 +9,7 @@ import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
 import { enviroments } from './enviroments';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 import config from './config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 @Module({
@@ -27,6 +28,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     ProductsModule,
     DatabaseModule,
     UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [
