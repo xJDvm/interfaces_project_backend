@@ -8,18 +8,13 @@ import { ProductsModule } from './products/products.module';
 import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-import { enviroments } from './enviroments';
 import config from './config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: [
-        enviroments[process.env.NODE_ENV] || '.env', // Asegúrate de que esto esté correcto
-        '.env', // fallback
-      ],
-      load: [config],
       isGlobal: true,
+      load: [config],
       validationSchema: Joi.object({
         API_KEY: Joi.string().required(),
         DATABASE_NAME: Joi.string().required(),

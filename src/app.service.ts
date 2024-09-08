@@ -10,8 +10,7 @@ export class AppService {
   ) { }
   getHello(): string {
     // console.log(this.tasks)
-    console.log('NODE_ENV', process.env.NODE_ENV, 'DB HOST', process.env.POSTGRES_HOST);
-    return `Heeello World! `;
+    return `Heello World! `;
   }
   // getTasks() {
   //   return new Promise((resolve, reject) => {
