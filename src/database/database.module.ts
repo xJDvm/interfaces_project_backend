@@ -1,45 +1,25 @@
 import { Module, Global } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Client } from 'pg';
-import { User } from 'src/users/entities/user.entity';
-
-const client = new Client({
-  user: 'postgres',
-  host: 'localhost',
-  password: 'elmejor10',
-  database: 'db-interfaces',
-  port: 5433,
-});
-client.connect();
-
-
-const API_KEY = '123124123'
-const API_KEY_PROD = 'PROD1231234123'
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Global()
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5433,
-      username: 'postgres',
-      password: 'elmejor10',
-      database: 'db-interfaces',
-      autoLoadEntities: true,
-      synchronize: true,
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres',
+        host: configService.get<string>('POSTGRES_HOST'),
+        port: configService.get<number>('POSTGRES_PORT'),
+        username: configService.get<string>('POSTGRES_USER'),
+        password: configService.get<string>('POSTGRES_PASSWORD'),
+        database: configService.get<string>('POSTGRES_DATABASE'),
+        autoLoadEntities: configService.get<boolean>('AUTO_LOAD_ENTITIES'),
+        synchronize: configService.get<boolean>('SYNCHRONIZE'),
+      }),
+      inject: [ConfigService],
     }),
   ],
-  providers: [
-    {
-      provide: 'API_KEY',
-      useValue: process.env.NODE_ENV === 'prod' ? API_KEY_PROD : API_KEY,
-    },
-    {
-      provide: 'PG',
-      useValue: client,
-    },
-  ],
-  exports: ['API_KEY', 'PG'],
+  exports: [],
 })
-export class DatabaseModule { }
+export class DatabaseModule {}

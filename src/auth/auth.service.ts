@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, HttpException, Injectable, UnauthorizedException, HttpStatus } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
@@ -41,14 +41,16 @@ export class AuthService {
   async login( loginDto: LoginDto) {
     const user = await this.usersService.findOneByEmail(loginDto.email);
     if (!user) {
-      throw new UnauthorizedException('Usuario no existe');
-
+      throw new HttpException({
+        status: 404,
+        error: 'Usuario no existe, redireccionando al Login',
+      }, HttpStatus.NOT_FOUND);
     } else {
 
       const isPasswordValid = await bcrypt.compare(loginDto.password, user.password);
 
       if (!isPasswordValid) {
-        throw new BadRequestException('Invalid credentials');
+        throw new UnauthorizedException('Invalid credentials');
 
       } else {
         const payload = { email: user.email, sub: user.id };

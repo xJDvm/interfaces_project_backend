@@ -1,38 +1,44 @@
 import { Module } from '@nestjs/common';
-import { HttpModule, HttpService } from '@nestjs/axios';
+import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProductsModule } from './products/products.module';
 import { DatabaseModule } from './database/database.module';
-import { ConfigModule } from '@nestjs/config';
-import { enviroments } from './enviroments';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { enviroments } from './enviroments';
 import config from './config';
-import { TypeOrmModule } from '@nestjs/typeorm';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: enviroments[process.env.NODE_ENV] || '.env',
+      envFilePath: [
+        enviroments[process.env.NODE_ENV] || '.env', // Asegúrate de que esto esté correcto
+        '.env', // fallback
+      ],
       load: [config],
       isGlobal: true,
       validationSchema: Joi.object({
-        API_KEY: Joi.number().required(),
+        API_KEY: Joi.string().required(),
         DATABASE_NAME: Joi.string().required(),
         DATABASE_PORT: Joi.number().required(),
+        AUTO_LOAD_ENTITIES: Joi.boolean().required(),
+        SYNCHRONIZE: Joi.boolean().required(),
+        POSTGRES_HOST: Joi.string().required(),
+        POSTGRES_PORT: Joi.number().required(),
+        POSTGRES_USER: Joi.string().required(),
+        POSTGRES_PASSWORD: Joi.string().required(),
+        POSTGRES_DATABASE: Joi.string().required(),
       })
     }),
-    HttpModule,
     ProductsModule,
     DatabaseModule,
     UsersModule,
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-  ],
+  providers: [AppService],
 })
 export class AppModule { }
