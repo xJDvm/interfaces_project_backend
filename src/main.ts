@@ -2,9 +2,15 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { AuthGuard } from './auth/guard/auth.guard';
 
 async function bootstrap() {
+
+
   const app = await NestFactory.create(AppModule);
+
+  const authGuard = app.get(AuthGuard);
+  app.useGlobalGuards(authGuard);
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true,
     forbidNonWhitelisted: true,
