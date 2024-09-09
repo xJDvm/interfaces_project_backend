@@ -16,6 +16,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         database: configService.get<string>('POSTGRES_DATABASE'),
         autoLoadEntities: configService.get<boolean>('AUTO_LOAD_ENTITIES'),
         synchronize: configService.get<boolean>('SYNCHRONIZE'),
+        //SI ES LOCAL COMENTAR EL SSL Y SI ES EN LA NUBE DESCOMENTAR
+
+        // ssl: {
+        //   rejectUnauthorized: false,
+        // }
       }),
       inject: [ConfigService],
     }),
