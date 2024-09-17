@@ -3,10 +3,7 @@ import { Users } from './user.entity';
 
 class Address {
   @Column({ nullable: true })
-  street: string;
-
-  @Column({ nullable: true })
-  city: string;
+  name: string;
 
   @Column({ nullable: true })
   state: string;
@@ -15,7 +12,19 @@ class Address {
   country: string;
 
   @Column({ nullable: true })
+  city: string;
+
+  @Column({ nullable: true })
+  lat: number;
+
+  @Column({ nullable: true })
+  lon: number;
+
+  @Column({ nullable: true })
   postcode: number;
+
+  @Column({ nullable: true })
+  street: string;
 }
 
 @Entity()

@@ -2,20 +2,14 @@ import { IsString, IsDate, IsEmail, IsNotEmpty, ValidateNested, IsNumber } from 
 import { Type } from 'class-transformer';
 
 class AddressDto {
-  @IsString()
-  street?: string;
-
-  @IsString()
-  city?: string;
-
-  @IsString()
-  state?: string;
-
-  @IsString()
-  country?: string;
-
-  @IsNumber()
-  postcode?: number;
+  name: string;
+  state: string;
+  country: string;
+  city: string;
+  lat: number;
+  lon: number;
+  postcode: number;
+  street: string;
 }
 
 export class CreateProfileDto {

@@ -31,11 +31,14 @@ export class UsersService {
     profile.email = '';
     profile.password = '';
     profile.address = {
-      street: '',
-      city: '',
+      name: '',
       state: '',
       country: '',
+      city: '',
+      lat: 0,
+      lon: 0,
       postcode: 0,
+      street: '',
     };
 
     await this.profileRepository.save(profile);
