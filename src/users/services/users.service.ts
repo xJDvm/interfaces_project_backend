@@ -37,7 +37,7 @@ export class UsersService {
       city: '',
       lat: 0,
       lon: 0,
-      postcode: 0,
+      postcode: null,
       street: '',
     };
 
