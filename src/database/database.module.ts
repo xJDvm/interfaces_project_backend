@@ -18,9 +18,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         synchronize: configService.get<boolean>('SYNCHRONIZE'),
         //SI ES LOCAL COMENTAR EL SSL Y SI ES EN LA NUBE DESCOMENTAR
 
-        ssl: {
-          rejectUnauthorized: false,
-        }
+        // ssl: {
+        //   rejectUnauthorized: false,
+        // }
       }),
       inject: [ConfigService],
     }),
