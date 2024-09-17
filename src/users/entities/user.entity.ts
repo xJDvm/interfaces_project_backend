@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, DeleteDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, DeleteDateColumn, OneToOne, CreateDateColumn } from 'typeorm';
+import { Profile } from './profile.entity';
 
 @Entity()
 export class Users {
@@ -6,10 +7,7 @@ export class Users {
   id: number;
 
   @Column()
-  name: string;
-
-  @Column({ nullable: true })
-  lastname: string;
+  username: string;
 
   @Column({ unique: true, nullable: false })
   email: string;
@@ -17,9 +15,12 @@ export class Users {
   @Column({ nullable: false })
   password: string;
 
-  @Column({ default: 'user' })
-  rol: string;
+  @CreateDateColumn()
+  createdAt: Date;
 
   @DeleteDateColumn()
   deletedAt: Date;
+
+  @OneToOne(() => Profile, profile => profile.user, { cascade: true })
+  profile: Profile;
 }

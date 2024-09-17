@@ -1,11 +1,11 @@
 import { Transform } from "class-transformer";
-import { IsEmail, IsString, MinLength, IsOptional } from "class-validator";
+import { IsEmail, IsString, MinLength, IsOptional, IsNumber } from "class-validator";
 
 export class RegisterDto {
 
   @Transform(({ value }) => value.trim())
   @IsString()
-  name: string;
+  username: string;
 
   @IsEmail()
   email: string;
