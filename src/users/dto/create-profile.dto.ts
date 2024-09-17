@@ -55,9 +55,9 @@ export class CreateProfileDto {
   @IsOptional()
   gender?: string;
 
-  @IsString()
+  @IsNumber()
   @IsOptional()
-  country?: string;
+  phone?: number;
 
   @IsEmail()
   @IsOptional()

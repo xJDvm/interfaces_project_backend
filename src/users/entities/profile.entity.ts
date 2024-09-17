@@ -49,7 +49,7 @@ export class Profile {
   gender: string;
 
   @Column({ nullable: true })
-  country: string;
+  phone: number;
 
   @Column({ nullable: true })
   email: string;

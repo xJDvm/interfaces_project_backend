@@ -27,7 +27,7 @@ export class UsersService {
     profile.lastname = '';
     profile.birthdate = null; // Dejar birthdate vacío
     profile.gender = '';
-    profile.country = '';
+    profile.phone = null; // Dejar phone vacío
     profile.email = '';
     profile.password = '';
     profile.address = {
