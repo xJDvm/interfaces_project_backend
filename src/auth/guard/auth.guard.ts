@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
     const controller = context.getClass();
 
     // Excluir AuthController
-    if (controller.name === 'AuthController' || controller.name === 'ProductsController') {
+    if (controller.name === 'AuthController' || controller.name === 'UsersController') {
       return true;
     }
 
