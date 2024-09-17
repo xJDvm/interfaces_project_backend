@@ -19,6 +19,7 @@ export class ProfileController {
 
   @Patch(':id')
   async update(@Param('id') id: number, @Body() updateProfileDto: UpdateProfileDto): Promise<Profile> {
+    console.log('Received profile update request:', updateProfileDto);
     return this.profileService.update(id, updateProfileDto);
   }
 }

@@ -1,4 +1,4 @@
-import { IsString, IsNumber, IsOptional, ValidateNested, IsDate, IsEmail } from 'class-validator';
+import { IsString, IsNumber, IsOptional, ValidateNested, IsDateString, IsEmail } from 'class-validator';
 import { Type } from 'class-transformer';
 
 class AddressDto {
@@ -47,7 +47,6 @@ export class CreateProfileDto {
   @IsOptional()
   lastname?: string;
 
-  @IsDate()
   @IsOptional()
   birthdate?: Date;
 
