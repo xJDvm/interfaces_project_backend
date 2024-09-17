@@ -23,10 +23,9 @@ export class UsersService {
     // Crear el perfil vacío vinculado al usuario
     const profile = new Profile();
     profile.user = savedUser;
-    profile.username = '';
     profile.firstname = '';
     profile.lastname = '';
-    profile.birthdate = null;
+    profile.birthdate = null; // Dejar birthdate vacío
     profile.gender = '';
     profile.country = '';
     profile.email = '';
