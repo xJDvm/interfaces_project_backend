@@ -60,4 +60,8 @@ export class Profile {
 
   @Column(type => Address)
   address: Address;
+
+  @Column({ nullable: true })
+  imagePath?: string;
+
 }

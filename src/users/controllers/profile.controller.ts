@@ -1,4 +1,6 @@
-import { Controller, Get, Patch, Param, Body } from '@nestjs/common';
+import { Controller, Get, Patch, Param, Body, Post, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { diskStorage } from 'multer';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ProfileService } from '../services/profile.service';
 import { UpdateProfileDto } from '../dto/update-profile.dto';
 import { Profile } from '../entities/profile.entity';
@@ -18,8 +20,23 @@ export class ProfileController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: number, @Body() updateProfileDto: UpdateProfileDto): Promise<Profile> {
-    console.log('Received profile update request:', updateProfileDto);
+  @UseInterceptors(FileInterceptor('image', {
+    storage: diskStorage({
+      destination: './uploads',
+      filename: (req, file, cb) => {
+        const filename = `${Date.now()}-${file.originalname}`;
+        cb(null, filename);
+      },
+    }),
+  }))
+  async update(
+    @Param('id') id: number,
+    @Body() updateProfileDto: UpdateProfileDto,
+    @UploadedFile() file: Express.Multer.File,
+  ): Promise<Profile> {
+    if (file) {
+      updateProfileDto.imagePath = file.path;
+    }
     return this.profileService.update(id, updateProfileDto);
   }
 }

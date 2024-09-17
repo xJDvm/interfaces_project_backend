@@ -45,6 +45,10 @@ export class ProfileService {
       await this.userRepository.save(profile.user);
     }
 
+    if (updateProfileDto.imagePath) {
+      profile.imagePath = updateProfileDto.imagePath;
+    }
+
     Object.assign(profile, updateProfileDto);
     return this.profileRepository.save(profile);
   }

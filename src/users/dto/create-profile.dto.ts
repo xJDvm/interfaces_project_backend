@@ -50,6 +50,10 @@ export class CreateProfileDto {
   @IsOptional()
   birthdate?: Date;
 
+  @IsOptional()
+  @IsString()
+  imagePath?: string;
+
   @IsString()
   @IsOptional()
   gender?: string;

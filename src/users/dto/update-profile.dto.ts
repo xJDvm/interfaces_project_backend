@@ -10,4 +10,9 @@ export class UpdateProfileDto extends PartialType(CreateProfileDto) {
   @IsString()
   @IsOptional()
   password?: string;
+
+  @IsOptional()
+  @IsString()
+  imagePath?: string;
+
 }
