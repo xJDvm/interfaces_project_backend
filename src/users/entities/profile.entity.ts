@@ -1,25 +1,56 @@
-import { Entity, Column, PrimaryGeneratedColumn, DeleteDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
+import { Users } from '../entities/user.entity';
+
+class Address {
+  @Column({ nullable: true })
+  street: string;
+
+  @Column({ nullable: true })
+  city: string;
+
+  @Column({ nullable: true })
+  state: string;
+
+  @Column({ nullable: true })
+  country: string;
+
+  @Column({ nullable: true })
+  postcode: number;
+}
 
 @Entity()
-export class Users {
+export class Profile {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  name: string;
+  @OneToOne(() => Users, user => user.profile, { onDelete: 'CASCADE' })
+  @JoinColumn()
+  user: Users;
+
+  @Column({ nullable: true })
+  username: string;
+
+  @Column({ nullable: true })
+  firstname: string;
 
   @Column({ nullable: true })
   lastname: string;
 
-  @Column({ unique: true, nullable: false })
+  @Column({ nullable: true })
+  birthdate: Date;
+
+  @Column({ nullable: true })
+  gender: string;
+
+  @Column({ nullable: true })
+  country: string;
+
+  @Column({ nullable: true })
   email: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   password: string;
 
-  @Column({ default: 'user' })
-  rol: string;
-
-  @DeleteDateColumn()
-  deletedAt: Date;
+  @Column(type => Address)
+  address: Address;
 }
