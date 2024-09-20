@@ -27,7 +27,7 @@ export class UsersService {
     profile.lastname = '';
     profile.birthdate = null; // Dejar birthdate vacío
     profile.gender = '';
-    profile.country = '';
+    profile.phone = null; // Dejar phone vacío
     profile.email = '';
     profile.password = '';
     profile.address = {
@@ -37,7 +37,7 @@ export class UsersService {
       city: '',
       lat: 0,
       lon: 0,
-      postcode: 0,
+      postcode: null,
       street: '',
     };
 

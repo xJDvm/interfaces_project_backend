@@ -5,6 +5,8 @@ import { Profile } from '../entities/profile.entity';
 import { Users } from '../entities/user.entity';
 import { UpdateProfileDto } from '../dto/update-profile.dto';
 
+import * as bcrypt from 'bcryptjs';
+
 @Injectable()
 export class ProfileService {
   constructor(
@@ -35,6 +37,16 @@ export class ProfileService {
     if (updateProfileDto.username) {
       profile.user.username = updateProfileDto.username;
       await this.userRepository.save(profile.user);
+    }
+
+    if (updateProfileDto.password) {
+      const hashedPassword = await bcrypt.hash(updateProfileDto.password, 10);
+      profile.user.password = hashedPassword;
+      await this.userRepository.save(profile.user);
+    }
+
+    if (updateProfileDto.imagePath) {
+      profile.imagePath = updateProfileDto.imagePath;
     }
 
     Object.assign(profile, updateProfileDto);
