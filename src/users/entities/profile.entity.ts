@@ -64,4 +64,6 @@ export class Profile {
   @Column({ nullable: true })
   imagePath?: string;
 
+  @Column({ nullable: true })
+  timezone: string;
 }

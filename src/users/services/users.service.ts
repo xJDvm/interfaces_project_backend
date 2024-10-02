@@ -30,6 +30,7 @@ export class UsersService {
     profile.phone = null; // Dejar phone vacío
     profile.email = '';
     profile.password = '';
+    profile.timezone = '';
     profile.address = {
       name: '',
       state: '',

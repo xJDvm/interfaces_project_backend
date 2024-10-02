@@ -2,38 +2,39 @@ import { IsString, IsNumber, IsOptional, ValidateNested, IsDateString, IsEmail }
 import { Type } from 'class-transformer';
 
 class AddressDto {
+  @IsOptional()
   @IsString()
-  @IsOptional()
-  name: string;
+  name?: string;
 
+  @IsOptional()
   @IsString()
-  @IsOptional()
-  state: string;
+  state?: string;
 
+  @IsOptional()
   @IsString()
-  @IsOptional()
-  country: string;
+  country?: string;
 
+  @IsOptional()
   @IsString()
-  @IsOptional()
-  city: string;
+  city?: string;
 
-  @IsNumber()
   @IsOptional()
-  lat: number;
-
-  @IsNumber()
-  @IsOptional()
-  lon: number;
-
-  @IsNumber()
-  @IsOptional()
-  postcode: number;
-
   @IsString()
+  lat?: string;
+
   @IsOptional()
-  street: string;
+  @IsString()
+  lon?: string;
+
+  @IsOptional()
+  @IsString()
+  postcode?: string;
+
+  @IsOptional()
+  @IsString()
+  street?: string;
 }
+
 
 export class CreateProfileDto {
   @IsString()
@@ -70,6 +71,11 @@ export class CreateProfileDto {
   @IsOptional()
   password?: string;
 
+  @IsOptional()
+  @IsString()
+  timezone?: string;
+
+  @IsOptional()
   @ValidateNested()
   @Type(() => AddressDto)
   address: AddressDto;
