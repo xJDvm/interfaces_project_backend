@@ -1,9 +1,10 @@
-import { Controller, Get, Patch, Param, Body, Post, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Get, Patch, Param, Body, Post, UseInterceptors, UploadedFile, ParseIntPipe } from '@nestjs/common';
 import { diskStorage } from 'multer';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ProfileService } from '../services/profile.service';
 import { UpdateProfileDto } from '../dto/update-profile.dto';
 import { Profile } from '../entities/profile.entity';
+import { plainToClass } from 'class-transformer';
 
 @Controller('profiles')
 export class ProfileController {
@@ -30,13 +31,23 @@ export class ProfileController {
     }),
   }))
   async update(
-    @Param('id') id: number,
-    @Body() updateProfileDto: UpdateProfileDto,
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: any,
     @UploadedFile() file: Express.Multer.File,
   ): Promise<Profile> {
+    const updateProfileDto = plainToClass(UpdateProfileDto, body);
+
     if (file) {
       updateProfileDto.imagePath = file.path;
     }
+
+    // Check if address is a string and parse it if necessary
+    if (typeof body.address === 'string') {
+      updateProfileDto.address = JSON.parse(body.address);
+    } else {
+      updateProfileDto.address = body.address;
+    }
+
     return this.profileService.update(id, updateProfileDto);
   }
 }
