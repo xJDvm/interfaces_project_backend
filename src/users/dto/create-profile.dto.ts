@@ -72,6 +72,10 @@ export class CreateProfileDto {
   password?: string;
 
   @IsOptional()
+  @IsString()
+  timezone?: string;
+
+  @IsOptional()
   @ValidateNested()
   @Type(() => AddressDto)
   address: AddressDto;
