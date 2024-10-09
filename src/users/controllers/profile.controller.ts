@@ -5,6 +5,8 @@ import { ProfileService } from '../services/profile.service';
 import { UpdateProfileDto } from '../dto/update-profile.dto';
 import { Profile } from '../entities/profile.entity';
 import { plainToClass } from 'class-transformer';
+import { Multer } from 'multer'; // Importar el tipo Multer
+
 
 @Controller('profiles')
 export class ProfileController {
@@ -33,7 +35,7 @@ export class ProfileController {
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() body: any,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile() file: Multer.File, // Usar el tipo Multer.File
   ): Promise<Profile> {
     const updateProfileDto = plainToClass(UpdateProfileDto, body);
 

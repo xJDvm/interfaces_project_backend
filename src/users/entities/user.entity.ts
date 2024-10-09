@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, DeleteDateColumn, OneToOne, CreateDateColumn } from 'typeorm';
 import { Profile } from './profile.entity';
+import { Config } from '../../configs/config.entity';
 
 @Entity()
 export class Users {
@@ -23,4 +24,7 @@ export class Users {
 
   @OneToOne(() => Profile, profile => profile.user, { cascade: true })
   profile: Profile;
+
+  @OneToOne(() => Config, config => config.user)
+  configs: Config[];
 }
