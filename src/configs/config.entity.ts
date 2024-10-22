@@ -1,5 +1,5 @@
 // config.entity.ts
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 import { Users } from '../users/entities/user.entity';
 
 @Entity()
@@ -30,6 +30,9 @@ export class Config {
 
   @Column({ nullable: true })
   fontp?: string;
+
+  @PrimaryColumn()
+  userId: number;
 
   @ManyToOne(() => Users, user => user.configs)
   user: Users;

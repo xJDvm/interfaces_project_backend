@@ -15,17 +15,21 @@ export class ConfigService {
     private readonly userRepository: Repository<Users>,
   ) {}
 
-  async create(createConfigDto: CreateConfigDto): Promise<Config> {
-    const user = await this.userRepository.findOne({ where: { id: createConfigDto.userId } });
-    if (!user) {
-      throw new Error('User not found');
+  async findConfigByUserId(userId: number): Promise<Config | undefined> {
+    return await this.configRepository.findOne({ where: { userId: userId } });
+}
+
+async create(createConfigDto: CreateConfigDto): Promise<Config> {
+    let config = await this.findConfigByUserId(createConfigDto.userId);
+
+    if (config) {
+        // Actualizar la configuración existente
+        this.configRepository.merge(config, createConfigDto);
+    } else {
+        // Crear una nueva configuración
+        config = this.configRepository.create(createConfigDto);
     }
 
-    const config = this.configRepository.create({
-      ...createConfigDto,
-      user: user,
-    });
-
     return await this.configRepository.save(config);
-  }
+}
 }
