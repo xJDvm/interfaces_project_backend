@@ -8,6 +8,7 @@ import { ProductsModule } from './products/products.module';
 import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { ConfigsModule } from './configs/configs.module';
 import config from './config';
 
 @Module({
@@ -32,6 +33,7 @@ import config from './config';
     DatabaseModule,
     UsersModule,
     AuthModule,
+    ConfigsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
