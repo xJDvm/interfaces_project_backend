@@ -1,5 +1,5 @@
 // configs.service.ts
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotAcceptableException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Config } from './config.entity';
@@ -16,9 +16,13 @@ export class ConfigService {
   ) {}
 
   async findConfigByUserId(userId: number): Promise<Config | undefined> {
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
     const userconfig = await this.configRepository.findOne({ where: { userId: userId } });
     if (!userconfig) {
-      throw new NotFoundException('User Not Found')
+      return null;
     }
     return userconfig;
 }
@@ -33,11 +37,11 @@ async create(createConfigDto: CreateConfigDto): Promise<Config> {
     let config = await this.findConfigByUserId(createConfigDto.userId);
 
     if (config) {
-        this.configRepository.merge(config, createConfigDto);
+      this.configRepository.merge(config, createConfigDto);
     } else {
-        config = this.configRepository.create(createConfigDto);
+      config = this.configRepository.create(createConfigDto);
     }
-
+    console.log(createConfigDto);
     return await this.configRepository.save(config);
-}
+  }
 }
