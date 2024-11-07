@@ -17,7 +17,7 @@ export class ProfileController {
   }
 
   @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number): Promise<Profile> {
+  async findOne(@Param('id') id: number): Promise<Profile> {
     return this.profileService.findOne(id);
   }
 
