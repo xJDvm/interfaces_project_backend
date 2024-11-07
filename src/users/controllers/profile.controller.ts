@@ -34,7 +34,7 @@ export class ProfileController {
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() body: any,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile() file: Multer.File, // Usar el tipo Multer.File
   ): Promise<Profile> {
     const updateProfileDto = plainToClass(UpdateProfileDto, body);
 
