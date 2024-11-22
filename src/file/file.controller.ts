@@ -1,4 +1,4 @@
-import { Controller, Post, Get, UploadedFiles, UseInterceptors, BadRequestException } from '@nestjs/common';
+import { Controller, Post, Get, Delete, UploadedFiles, UseInterceptors, BadRequestException, Param } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import * as path from 'path';
@@ -8,6 +8,11 @@ import { FileService } from './file.service';
 @Controller('files')
 export class FileController {
   constructor(private readonly fileService: FileService) {}
+
+  @Delete(':id')
+  async deleteFile(@Param('id') id: number) {
+    return await this.fileService.deleteFileById(id);
+  }
 
   @Get()
   async getAllFiles() {
