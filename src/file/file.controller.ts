@@ -11,7 +11,11 @@ export class FileController {
 
   @Delete(':id')
   async deleteFile(@Param('id') id: number) {
-    return await this.fileService.deleteFileById(id);
+    const files = await this.fileService.deleteFileById(id);
+    return {
+      message: 'Archivo eliminado exitosamente',
+      data: files,
+    };
   }
 
   @Get()
