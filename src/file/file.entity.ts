@@ -17,6 +17,9 @@ export class FileEntity {
   @Column()
   size: number;
 
+  @Column({ nullable: true })
+  audioIndex: number; // Identifica los archivos de audio como 1, 2, 3
+
   @CreateDateColumn()
   created_at: Date;
 }
