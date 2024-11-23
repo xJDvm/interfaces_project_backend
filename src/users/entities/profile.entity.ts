@@ -65,5 +65,14 @@ export class Profile {
   imagePath?: string;
 
   @Column({ nullable: true })
+  image1?: string;
+
+  @Column({ nullable: true })
+  image2?: string;
+
+  @Column({ nullable: true })
+  image3?: string;
+
+  @Column({ nullable: true })
   timezone: string;
 }
